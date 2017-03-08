@@ -127,9 +127,9 @@ describe("About Applying What We Have Learnt", function() {
       while(num > 1){
         while(num % divisor === 0){
           num /= divisor;
-          if(isPrime(num)){
+        }
+        if(isPrime(num)){
             return num;
-          }
         }
         divisor++;
         if(divisor * divisor > num ){
@@ -142,9 +142,29 @@ describe("About Applying What We Have Learnt", function() {
     expect(largetPrimeFactor(1900)).toBe(19);
   });
 
-  // it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
+  it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
     
-  // });
+    function isPalindrome(number){
+      var input = String(number)
+      return (input === input.split('').reverse().join(''));
+    }
+
+    function findLargestPalindrome(){
+      var largestPalindrome = 0;
+      for(var i = 999; i >= 100; i--){
+        var jMax = Math.max(largestPalindrome/i, 100);
+        for(var j = i; j >= jMax ; j--){
+          var res = i * j;
+          if(res > largestPalindrome){
+            largestPalindrome = (isPalindrome(res)) ? res : largestPalindrome;
+          }
+        }
+      }
+      return largestPalindrome;
+    }
+    expect(findLargestPalindrome()).toBe(906609);
+    
+  });
 
   // it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
       
