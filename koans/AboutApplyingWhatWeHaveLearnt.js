@@ -113,7 +113,7 @@ describe("About Applying What We Have Learnt", function() {
     if(num <= 1){
       return false;
     }
-    for(var i = 2; i<=Math.ceil(Math.sqrt(num)); i++){
+    for(var i = 2; i<=Math.floor(Math.sqrt(num)); i++){
       if(num % i === 0){
         return false;
       }
@@ -224,8 +224,19 @@ describe("About Applying What We Have Learnt", function() {
     expect(squareSums(3, 4)).toBe(24);
   });
 
-  // it("should find the 10001st prime", function () {
-
-  // });
+  it("should find the 10001st prime", function () {
+    function findnthPrimeNumber(n){
+      var i = 2;
+      var count = 0;
+      while(count < n){
+        if(isPrime(i)){
+          count++;
+        }
+        i++;
+      }
+      return i-1;
+    }
+    expect(findnthPrimeNumber(10001)).toBe(104743)
+  });
   
 });
