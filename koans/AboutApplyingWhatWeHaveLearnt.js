@@ -110,7 +110,7 @@ describe("About Applying What We Have Learnt", function() {
   /*********************************************************************************/
   /* UNCOMMENT FOR EXTRA CREDIT */
   function isPrime(num){
-    if(num <= 2){
+    if(num <= 1){
       return false;
     }
     for(var i = 2; i<=Math.ceil(Math.sqrt(num)); i++){
@@ -143,7 +143,7 @@ describe("About Applying What We Have Learnt", function() {
   });
 
   it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
-    
+
     function isPalindrome(number){
       var input = String(number)
       return (input === input.split('').reverse().join(''));
@@ -151,8 +151,10 @@ describe("About Applying What We Have Learnt", function() {
 
     function findLargestPalindrome(){
       var largestPalindrome = 0;
-      for(var i = 999; i >= 100; i--){
-        var jMax = Math.max(largestPalindrome/i, 100);
+      var maxNum = 999;
+      var minNum = 100;
+      for(var i = maxNum; i >= minNum; i--){
+        var jMax = Math.max(largestPalindrome/i, minNum);
         for(var j = i; j >= jMax ; j--){
           var res = i * j;
           if(res > largestPalindrome){
@@ -166,10 +168,52 @@ describe("About Applying What We Have Learnt", function() {
     
   });
 
-  // it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
-      
-    
-  // });
+  it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
+    function findFactors(num){
+      var divisor = 2;
+      var factors = {};
+      while(num > 1){
+        while(num % divisor === 0){
+          num /= divisor;
+          factors[divisor] = (factors[divisor]) ? factors[divisor] + 1 : 1
+          }
+        if(isPrime(num)){
+           factors[num] =  1
+        }
+        divisor++;
+        if(divisor * divisor > num ){
+          break;
+        }
+      }
+      return factors;
+    }
+
+    function mergeFactors(mainFactorObj, factorObj){
+      var keys = Object.keys(factorObj)
+      for(var key of keys){
+        count1 = factorObj[key];
+        count2 = (!mainFactorObj[key]) ? factorObj[key] : mainFactorObj[key];
+        mainFactorObj[key] = (count2 > count1) ? count2 : count1 ;
+      }
+      return mainFactorObj;
+    }
+
+    function findSmallestNumberDivisbleBy1To20(){
+      var factorsToMultiply = {};
+      var maxNum = 20;
+      var startNum = (maxNum/2)+1;
+      for(var i = startNum; i <= maxNum; i++){
+        mergeFactors(factorsToMultiply, findFactors(i));
+      }
+      var result = 1;
+      var multiples = Object.keys(factorsToMultiply);
+      for(var key of multiples){
+        result *= Math.pow(key, factorsToMultiply[key])
+      }
+      return result;
+    }
+    expect(findSmallestNumberDivisbleBy1To20()).toBe(232792560);
+  });
 
   it("should find the difference between the sum of the squares and the square of the sums", function () {
     function squareSums(num1, num2){
