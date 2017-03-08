@@ -151,9 +151,14 @@ describe("About Applying What We Have Learnt", function() {
     
   // });
 
-  // it("should find the difference between the sum of the squares and the square of the sums", function () {
-    
-  // });
+  it("should find the difference between the sum of the squares and the square of the sums", function () {
+    function squareSums(num1, num2){
+      var res1 = Math.pow(num1, 2) + Math.pow(num2, 2);
+      var res2 = Math.pow((num1 + num2), 2);
+      return Math.abs(res1 - res2);
+    }
+    expect(squareSums(3, 4)).toBe(24);
+  });
 
   // it("should find the 10001st prime", function () {
 
